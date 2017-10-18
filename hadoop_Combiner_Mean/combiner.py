@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+import sys
+import re
+
+def combiner():
+    curKey = None
+    totalHits = 1
+    totalValue = 0
+
+    for line in sys.stdin:
+        splitLine = line.split("\t")
+        day = splitLine[0]
+        value = splitLine[1]
+
+        if curKey and curKey != day:
+            print "{0}\t{1}".format(day, totalValue/totalHits)
+            totalHits=1
+            totalValue=0
+        curKey = day
+
+        totalHits += 1
+        totalValue += float(value)
+
+    print "{0}\t{1}".format(curKey, totalValue/totalHits)
+combiner()
